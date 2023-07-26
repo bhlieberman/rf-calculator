@@ -1,0 +1,24 @@
+.calculator-button {
+    background-color: lightblue;
+}
+
+#calculator-display {
+    background-color: black;
+    color: white;
+    font-size: large;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+#calculator > div {
+    width: 200px;
+}
+
+#calculator > table {
+    height: 200px;
+    width: 200px;
+}
