@@ -18,6 +18,8 @@
         :output-dir "public/js"
         :asset-path "js"
         :modules {:main {:init-fn bhlie.fcc.calculator.core/init}}
+        :devtools
+        {:preloads [day8.re-frame-10x.preload]}
         :dev
          {:compiler-options
           {:closure-defines

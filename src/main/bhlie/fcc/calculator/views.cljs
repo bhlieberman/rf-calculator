@@ -3,29 +3,42 @@
             [bhlie.fcc.calculator.subs]))
 
 (defn click-to-update [e]
-  (dispatch [:calculator/update-current-value (.. e -target -textContent)]))
+  (dispatch [:calculator/update-expr (.. e -target -textContent)]))
+
+(defn calculate-answer [_]
+  (dispatch [:calculator/compute-expr]))
+
+(defn clear-screen [_]
+  (dispatch [:calculator/clear]))
 
 (defn current-value []
-  [:div#calculator-display
+  [:div#display
+   [:p#expr @(subscribe [:display/show-expr])]
    [:span#current-value @(subscribe [:calculator/current-value])]])
 
 (defn calculator []
   [:div#calculator
    [current-value]
    [:div#numbers
-    (for [i [{:el "AC" :id "clear"}
+    (for [i [{:el "AC" :id "clear" :on-click clear-screen}
              {:el "/" :id "divide"}
-             {:el "x" :id "mul"}
-             7 8 9
-             {:el "-" :id "minus"}
-             4 5 6
-             {:el "+" :id "plus"}
-             1 2 3
+             {:el "x" :id "multiply"}
+             {:el 7 :id "seven"}
+             {:el 8 :id "eight"} 
+             {:el 9 :id "nine"}
+             {:el "-" :id "subtract"}
+             {:el 4 :id "four"} 
+             {:el 5 :id "five"}
+             {:el 6 :id "six"}
+             {:el "+" :id "add"}
+             {:el 1 :id "one"}
+             {:el 2 :id "two"}
+             {:el 3 :id "three"}
              {:el "=" :id "equals"}
-             0
+             {:el 0 :id "zero"}
              {:el "." :id "decimal"}]]
-      (condp = (type i)
-        js/Number [:div.calculator-button {:on-click click-to-update} i]
-        cljs.core/PersistentArrayMap
-        [:div.calculator-button {:on-click click-to-update
+      (if (= (:el i) "=")
+        [:div.calculator-button {:on-click calculate-answer
+                                 :id "equals"} "="]
+        [:div.calculator-button {:on-click (or (:on-click i) click-to-update)
                                  :id (:id i)} (:el i)]))]])

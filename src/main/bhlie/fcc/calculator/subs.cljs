@@ -4,3 +4,12 @@
 (reg-sub
  :calculator/current-value
  :=> :value)
+
+(reg-sub
+ :calculator/current-expr
+ :=> :expr)
+
+(reg-sub
+ :display/show-expr
+ :<- [:calculator/current-expr]
+ :=> #(apply str %))

@@ -4,11 +4,17 @@
     border: 2px solid black;
 }
 
-#calculator-display {
+#display {
     background-color: black;
     color: white;
     font-size: large;
     width: 200px;
+    text-align: right;
+}
+
+#expr {
+    color: red;
+    font-size: small;
 }
 
 #calculator {
